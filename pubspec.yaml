@@ -1,0 +1,50 @@
+name: delx
+description: "Delx is your stylish new mobile storefront, seamlessly connecting your customers to your unique products with a beautiful, intuitive Flutter app powered by your robust Django backend. Explore a vibrant shopping experience, from personalized homepages to a smooth, secure checkout, all designed"
+
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.1.0
+  provider: ^6.1.2
+  go_router: ^15.1.2
+  shared_preferences: ^2.3.5
+  cached_network_image: ^3.0.0
+  badges: ^3.0.0
+  smooth_page_indicator: ^1.1.0
+  url_launcher: ^6.3.1
+  flutter_inappwebview: ^6.1.5
+  intl: ^0.17.0
+  http: ^1.2.0
+  http_parser: ^4.0.2
+  crypto: ^3.0.3
+
+  firebase_core: 2.24.2
+  firebase_messaging: 14.7.10
+  flutter_local_notifications: ^17.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/images/delx_logo.png
+  remove_alpha_ios: true
