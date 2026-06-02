@@ -1,4 +1,4 @@
-package com.example.delx
+package com.vertex.delx
 
 import io.flutter.embedding.android.FlutterActivity
 

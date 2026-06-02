@@ -355,14 +355,14 @@ Padding(
     );
   }
 
-  Widget _buildFeaturedSection(
+Widget _buildFeaturedSection(
     List featuredProducts,
     bool isLoading,
     ThemeData theme,
   ) {
     if (isLoading && featuredProducts.isEmpty) {
       return SizedBox(
-        height: 280,
+        height: 260,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -397,29 +397,24 @@ Padding(
       return const SizedBox.shrink();
     }
 
-    final displayProducts = featuredProducts.take(4).toList();
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        height: 340,
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.65,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-          ),
-          itemCount: displayProducts.length,
-          itemBuilder: (context, index) {
-            if (index >= displayProducts.length) return const SizedBox.shrink();
-            final product = displayProducts[index];
-            if (product == null) return const SizedBox.shrink();
-            return ProductCard(product: product, isGridView: true);
-          },
-        ),
+    return SizedBox(
+      height: 260,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: featuredProducts.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          if (index >= featuredProducts.length) return const SizedBox.shrink();
+          final product = featuredProducts[index];
+          if (product == null) return const SizedBox.shrink();
+          return SizedBox(
+            width: 160,
+            child: ProductCard(product: product, isGridView: false),
+          );
+        },
       ),
     );
   }

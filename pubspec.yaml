@@ -46,5 +46,5 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: assets/images/delx_logo.png
+  image_path: "assets/images/delx_app_icon.png"
   remove_alpha_ios: true

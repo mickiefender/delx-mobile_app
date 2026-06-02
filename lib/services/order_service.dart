@@ -97,14 +97,15 @@ final body = {
         'tax_amount': 0,  // No tax - removed from system
         'total_amount': subtotal + shippingFee,
         'shipping_address': shippingAddress,
-        if (shippingCity != null) 'shipping_city': shippingCity,
-        if (shippingState != null) 'shipping_state': shippingState,
-        if (shippingPostalCode != null) 'shipping_postal_code': shippingPostalCode,
-        if (shippingCountry != null) 'shipping_country': shippingCountry,
-        if (shippingFirstName != null) 'shipping_first_name': shippingFirstName,
-        if (shippingLastName != null) 'shipping_last_name': shippingLastName,
-        if (shippingEmail != null) 'shipping_email': shippingEmail,
-        if (shippingPhone != null) 'shipping_phone': shippingPhone,
+        // Always include shipping fields - use empty string as fallback to avoid "may not be blank" error
+        'shipping_city': shippingCity ?? '',
+        'shipping_state': shippingState ?? '',
+        'shipping_postal_code': shippingPostalCode ?? '',
+        'shipping_country': shippingCountry ?? '',
+        'shipping_first_name': shippingFirstName ?? '',
+        'shipping_last_name': shippingLastName ?? '',
+        'shipping_email': shippingEmail ?? '',
+        'shipping_phone': shippingPhone ?? '',
       };
 
       final response = await apiService.post(ApiConfig.orders, body: body, requiresAuth: true);
@@ -164,17 +165,24 @@ final body = {
         'tax_amount': 0,  // No tax - removed from system
         'total_amount': subtotal + shippingFee,
         'shipping_address': shippingAddress,
-        if (shippingCity != null) 'shipping_city': shippingCity,
-        if (shippingState != null) 'shipping_state': shippingState,
-        if (shippingPostalCode != null) 'shipping_postal_code': shippingPostalCode,
-        if (shippingCountry != null) 'shipping_country': shippingCountry,
+        // Always include shipping fields - use empty string as fallback to avoid "may not be blank" error
+        'shipping_city': shippingCity ?? '',
+        'shipping_state': shippingState ?? '',
+        'shipping_postal_code': shippingPostalCode ?? '',
+        'shipping_country': shippingCountry ?? '',
         'shipping_first_name': shippingFirstName,
         'shipping_last_name': shippingLastName,
         'shipping_email': shippingEmail,
         'shipping_phone': shippingPhone,
       };
 
+      debugPrint('Creating guest order to: ${ApiConfig.apiBaseUrl}${ApiConfig.orders}');
+      debugPrint('Guest order body keys: ${body.keys.toList()}');
+      debugPrint('Guest order items count: ${itemsData.length}');
+
       final response = await apiService.post(ApiConfig.orders, body: body);
+      debugPrint('Guest order response received: $response');
+      
       final order = Order.fromJson(response);
       _orders.insert(0, order);
       await _saveOrdersLocal();
@@ -182,6 +190,7 @@ final body = {
       return order;
     } catch (e) {
       debugPrint('Failed to create guest order: $e');
+      debugPrint('Guest order error type: ${e.runtimeType}');
       _error = e.toString();
       
       // Handle any error - might be server issue or network problem

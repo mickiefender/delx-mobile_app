@@ -1,0 +1,38 @@
+<variant
+    name="release"
+    package="com.vertex.delx"
+    minSdkVersion="21"
+    targetSdkVersion="34"
+    shrinking="true"
+    mergedManifest="/Users/mickiefender/development/delx/frontend/build/app/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml"
+    manifestMergeReport="/Users/mickiefender/development/delx/frontend/build/app/outputs/logs/manifest-merger-release-report.txt"
+    proguardFiles="/Users/mickiefender/development/delx/frontend/build/app/intermediates/default_proguard_files/global/proguard-android.txt-8.3.2:/Users/mickiefender/development/flutter/packages/flutter_tools/gradle/flutter_proguard_rules.pro:proguard-rules.pro"
+    partialResultsDir="/Users/mickiefender/development/delx/frontend/build/app/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out">
+  <buildFeatures
+      coreLibraryDesugaring="true"
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+    <sourceProvider
+        manifests="src/main/AndroidManifest.xml"
+        javaDirectories="src/main/java:src/release/java:src/main/kotlin:src/release/kotlin"
+        resDirectories="src/main/res:src/release/res"
+        assetsDirectories="src/main/assets:src/release/assets"/>
+  </sourceProviders>
+  <testSourceProviders>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <manifestPlaceholders>
+    <placeholder
+        name="applicationName"
+        value="android.app.Application" />
+  </manifestPlaceholders>
+  <artifact
+      classOutputs="/Users/mickiefender/development/delx/frontend/build/app/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/mickiefender/development/delx/frontend/build/app/tmp/kotlin-classes/release:/Users/mickiefender/development/delx/frontend/build/app/kotlinToolingMetadata:/Users/mickiefender/development/delx/frontend/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/processReleaseResources/R.jar"
+      type="MAIN"
+      applicationId="com.vertex.delx"
+      generatedSourceFolders="/Users/mickiefender/development/delx/frontend/build/app/generated/ap_generated_sources/release/out"
+      generatedResourceFolders="/Users/mickiefender/development/delx/frontend/build/app/generated/res/resValues/release"
+      desugaredMethodsFiles="/Users/mickiefender/.gradle/caches/transforms-4/3fa30aad1741bd88433bbd7215a9339e/transformed/desugar_jdk_libs_configuration-2.1.4-desugar-lint.txt:/Users/mickiefender/.gradle/caches/transforms-4/2f9c1233e4cba41a87763d4633b76d88/transformed/D8BackportedDesugaredMethods.txt">
+  </artifact>
+</variant>

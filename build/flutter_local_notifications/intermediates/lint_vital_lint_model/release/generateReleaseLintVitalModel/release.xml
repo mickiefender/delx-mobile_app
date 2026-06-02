@@ -1,0 +1,32 @@
+<variant
+    name="release"
+    package="com.dexterous.flutterlocalnotifications"
+    minSdkVersion="16"
+    targetSdkVersion="16"
+    mergedManifest="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
+    manifestMergeReport="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/outputs/logs/manifest-merger-release-report.txt"
+    proguardFiles="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/intermediates/default_proguard_files/global/proguard-android.txt-8.3.2"
+    partialResultsDir="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out">
+  <buildFeatures
+      coreLibraryDesugaring="true"
+      namespacing="REQUIRED"/>
+  <sourceProviders>
+    <sourceProvider
+        manifests="src/main/AndroidManifest.xml"
+        javaDirectories="src/main/java:src/release/java:src/main/kotlin:src/release/kotlin"
+        resDirectories="src/main/res:src/release/res"
+        assetsDirectories="src/main/assets:src/release/assets"/>
+  </sourceProviders>
+  <testSourceProviders>
+  </testSourceProviders>
+  <testFixturesSourceProviders>
+  </testFixturesSourceProviders>
+  <artifact
+      classOutputs="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/intermediates/javac/release/compileReleaseJavaWithJavac/classes:/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/intermediates/compile_r_class_jar/release/generateReleaseRFile/R.jar"
+      type="MAIN"
+      applicationId="com.dexterous.flutterlocalnotifications"
+      generatedSourceFolders="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/generated/ap_generated_sources/release/out"
+      generatedResourceFolders="/Users/mickiefender/development/delx/frontend/build/flutter_local_notifications/generated/res/resValues/release"
+      desugaredMethodsFiles="/Users/mickiefender/.gradle/caches/transforms-4/b60658e80b979abbc101e06aef246721/transformed/desugar_jdk_libs_configuration-1.2.2-desugar-lint.txt:/Users/mickiefender/.gradle/caches/transforms-4/dee49a6b3ee264c74ffb6ab7089b8a4b/transformed/D8BackportedDesugaredMethods.txt">
+  </artifact>
+</variant>

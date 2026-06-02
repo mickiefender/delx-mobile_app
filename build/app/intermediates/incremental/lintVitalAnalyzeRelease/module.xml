@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="/Users/mickiefender/development/delx/frontend/android/app"
+    name=":app"
+    type="APP"
+    maven="android:app:"
+    agpVersion="8.3.2"
+    buildFolder="/Users/mickiefender/development/delx/frontend/build/app"
+    bootClassPath="/Users/mickiefender/Library/Android/sdk/platforms/android-34/android.jar:/Users/mickiefender/Library/Android/sdk/build-tools/34.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-34">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

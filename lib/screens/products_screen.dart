@@ -21,7 +21,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isGridView = true;
   bool _showFilters = true;
-  String _sortBy = 'Popularity';
+String _sortBy = 'Shuffle';
   double _lastScrollPosition = 0;
   List<Product> _filteredProducts = [];
   
@@ -206,6 +206,9 @@ void _sortProducts() {
         _filteredProducts.sort((a, b) => b.price.compareTo(a.price));
       } else if (_sortBy == 'Rating') {
         _filteredProducts.sort((a, b) => b.rating.compareTo(a.rating));
+      } else if (_sortBy == 'Shuffle') {
+        // Random shuffle for fresh look on each refresh
+        _filteredProducts.shuffle();
       } else {
         _filteredProducts.sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
       }
@@ -470,7 +473,7 @@ OutlinedButton.icon(
                               isExpanded: true,
                               underline: const SizedBox(),
                               style: theme.textTheme.bodySmall,
-                              items: ['Popularity', 'Price: Low to High', 'Price: High to Low', 'Rating'].map((String value) => DropdownMenuItem<String>(value: value, child: Text(value, style: theme.textTheme.bodySmall))).toList(),
+items: ['Shuffle', 'Popularity', 'Price: Low to High', 'Price: High to Low', 'Rating'].map((String value) => DropdownMenuItem<String>(value: value, child: Text(value, style: theme.textTheme.bodySmall))).toList(),
                               onChanged: (String? value) {
                                 if (value != null) {
                                   setState(() => _sortBy = value);
@@ -704,9 +707,9 @@ OutlinedButton.icon(
           ? GridView.builder(
               controller: _scrollController,
               padding: const EdgeInsets.all(16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.68,
+                childAspectRatio: 0.62,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
               ),

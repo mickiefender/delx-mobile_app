@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.vertex.delx.app-mergeReleaseResources-51:/values-v25/values-v25.xml",
+            "map": [
+                {
+                    "source": "/Users/mickiefender/.gradle/caches/transforms-4/b0a26e934d02386b32de3e728e236a61/transformed/appcompat-1.6.1/res/values-v25/values-v25.xml",
+                    "from": {
+                        "startLines": "2,3,4,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,126,209,308",
+                        "endLines": "2,3,5,7",
+                        "endColumns": "70,82,12,12",
+                        "endOffsets": "121,204,303,414"
+                    }
+                }
+            ]
+        }
+    ]
+}

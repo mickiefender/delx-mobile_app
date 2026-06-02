@@ -92,18 +92,27 @@ class ApiService {
     }
   }
 
-  /// POST request
+/// POST request
   Future<Map<String, dynamic>> post(
     String endpoint, {
     Map<String, dynamic>? body,
     bool requiresAuth = false,
   }) async {
     try {
+      final url = '${ApiConfig.apiBaseUrl}$endpoint';
+      debugPrint('API POST to: $url');
+      if (body != null) {
+        debugPrint('API POST body keys: ${body.keys.toList()}');
+      }
+      
       final response = await http.post(
-        Uri.parse('${ApiConfig.apiBaseUrl}$endpoint'),
+        Uri.parse(url),
         headers: _getHeaders(requiresAuth: requiresAuth),
         body: body != null ? jsonEncode(body) : null,
       ).timeout(const Duration(seconds: 30));
+
+      debugPrint('API POST response status: ${response.statusCode}');
+      debugPrint('API POST response body: ${response.body}');
 
       final result = handleResponse(response);
       if (result is Map<String, dynamic>) {
@@ -111,6 +120,7 @@ class ApiService {
       }
       return {'results': result};
     } catch (e) {
+      debugPrint('API POST error: $e');
       throw handleError(e);
     }
   }
@@ -227,7 +237,8 @@ class ApiService {
             throw ApiException(errorMessages.join('\n'), response.statusCode);
           }
         }
-        final detail = body['detail'] ?? body['error'] ?? 'Unknown error occurred';
+final detail = body['detail'] ?? body['error'] ?? body['message'] ?? 'Unknown error occurred';
+        debugPrint('API error response: status=${response.statusCode}, body=$body');
         throw ApiException(detail.toString(), response.statusCode);
       }
     }

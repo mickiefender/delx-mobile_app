@@ -186,11 +186,11 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-              ],
+],
             ),
-            Expanded(
-              child: SizedBox(
-                height: 95,
+Expanded(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 70),
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
