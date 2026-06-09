@@ -179,18 +179,26 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  /// Logout and clear session.
+/// Logout and clear session.
   Future<void> logout() async {
     _isLoading = true;
+    _error = null;
     notifyListeners();
 
     try {
       if (apiService.isAuthenticated) {
-        await apiService.post(
-          ApiConfig.customerLogout,
-          requiresAuth: true,
-        );
+        try {
+          await apiService.post(
+            ApiConfig.customerLogout,
+            requiresAuth: true,
+          );
+        } catch (e) {
+          // Backend logout can fail for expired/invalid tokens (e.g. 401).
+          // We still clear local auth to complete client-side sign out.
+          debugPrint('Logout API failed, continuing local sign out: $e');
+        }
       }
+
       await apiService.clearAuth();
     } finally {
       _clearUserState();
@@ -199,7 +207,34 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-void _clearUserState() {
+  /// Delete the user's account permanently.
+  Future<bool> deleteAccount() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      await apiService.post(
+        ApiConfig.customerDeleteAccount,
+        requiresAuth: true,
+      );
+      
+      // Clear auth after successful deletion
+      await apiService.clearAuth();
+      _clearUserState();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      debugPrint('Account deletion failed: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  void _clearUserState() {
     _token = null;
     _userId = null;
     _userEmail = null;

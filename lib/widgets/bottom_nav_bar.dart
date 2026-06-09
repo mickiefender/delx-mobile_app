@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:delx/nav.dart';
 import 'package:delx/services/auth_service.dart';
 import 'package:delx/services/cart_service.dart';
+import 'package:delx/services/wishlist_service.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -60,24 +61,66 @@ class BottomNavBar extends StatelessWidget {
             ),
             label: 'Products',
           ),
-          NavigationDestination(
-            icon: _buildBadgeIcon(
-              context,
-              Icons.favorite_border,
-              wishlistCount: null,
-              size: 24,
+NavigationDestination(
+            icon: Consumer<WishlistService>(
+              builder: (context, wishlistService, _) {
+                if (wishlistService.itemCount > 0) {
+                  return Badge(
+                    label: Text(
+                      wishlistService.itemCount.toString(),
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                    child: const Icon(Icons.favorite_border, size: 24),
+                  );
+                }
+                return const Icon(Icons.favorite_border, size: 24);
+              },
             ),
-            selectedIcon: _buildBadgeIcon(
-              context,
-              Icons.favorite,
-              wishlistCount: null,
-              size: 24,
+            selectedIcon: Consumer<WishlistService>(
+              builder: (context, wishlistService, _) {
+                if (wishlistService.itemCount > 0) {
+                  return Badge(
+                    label: Text(
+                      wishlistService.itemCount.toString(),
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                    child: const Icon(Icons.favorite, size: 24),
+                  );
+                }
+                return const Icon(Icons.favorite, size: 24);
+              },
             ),
             label: 'Wishlist',
           ),
           NavigationDestination(
-            icon: _buildBadgeIcon(context, Icons.shopping_cart_outlined, size: 24),
-            selectedIcon: _buildBadgeIcon(context, Icons.shopping_cart, size: 24),
+            icon: Consumer<CartService>(
+              builder: (context, cartService, _) {
+                if (cartService.itemCount > 0) {
+                  return Badge(
+                    label: Text(
+                      cartService.itemCount.toString(),
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                    child: const Icon(Icons.shopping_cart_outlined, size: 24),
+                  );
+                }
+                return const Icon(Icons.shopping_cart_outlined, size: 24);
+              },
+            ),
+            selectedIcon: Consumer<CartService>(
+              builder: (context, cartService, _) {
+                if (cartService.itemCount > 0) {
+                  return Badge(
+                    label: Text(
+                      cartService.itemCount.toString(),
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                    child: const Icon(Icons.shopping_cart, size: 24),
+                  );
+                }
+                return const Icon(Icons.shopping_cart, size: 24);
+              },
+            ),
             label: 'Cart',
           ),
           NavigationDestination(
@@ -98,47 +141,7 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _buildBadgeIcon(
-    BuildContext context,
-    IconData icon, {
-    int? wishlistCount,
-    double size = 24,
-  }) {
-    final theme = Theme.of(context);
-
-    if (wishlistCount != null) {
-      // For wishlist - not used currently
-      if (wishlistCount > 0) {
-        return Badge(
-          label: Text(
-            wishlistCount.toString(),
-            style: const TextStyle(fontSize: 10),
-          ),
-          child: Icon(icon, size: size),
-        );
-      }
-      return Icon(icon, size: size);
-    }
-
-    // For cart - use consumer
-    return Consumer<CartService>(
-      builder: (context, cartService, _) {
-        if (cartService.itemCount > 0) {
-          return Badge(
-            label: Text(
-              cartService.itemCount.toString(),
-              style: const TextStyle(fontSize: 10),
-            ),
-            backgroundColor: theme.colorScheme.secondary,
-            child: Icon(icon, size: size),
-          );
-        }
-        return Icon(icon, size: size);
-      },
-    );
-  }
-
-  void _onItemTapped(BuildContext context, int index) {
+void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
         context.go(AppRoutes.home);

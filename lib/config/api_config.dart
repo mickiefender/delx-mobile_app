@@ -47,7 +47,7 @@ class ApiConfig {
   /// Full API base URL
   static String get apiBaseUrl => '$baseUrl$apiPrefix';
 
-  // =========================
+// =========================
   // 📦 ENDPOINTS
   // =========================
 
@@ -69,6 +69,7 @@ class ApiConfig {
   static const String customerRegister = '/users/register/';
   static const String customerProfile = '/users/me/';
   static const String customerLogout = '/users/logout/';
+  static const String customerDeleteAccount = '/users/delete-account/';
   static const String googleAuth = '/users/google-auth/';
   static const String appleAuth = '/users/apple-auth/';
   static const String notifications = '/notifications/';

@@ -7,7 +7,6 @@ import 'package:delx/services/payment_service.dart';
 import 'package:delx/widgets/app_header.dart';
 import 'package:delx/widgets/checkout_step_indicator.dart';
 import 'package:delx/widgets/enhanced_form_field.dart';
-import 'package:delx/widgets/payment_method_card.dart';
 import 'package:delx/widgets/professional_section_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,28 +30,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _postalCodeController = TextEditingController();
   final _countryController = TextEditingController(text: 'Ghana');
 
-  int _currentStep = 0;
-  String _paymentMethod = 'Mobile Money';
+int _currentStep = 0;
+  // Payment method is now fixed to Mobile Money (payment step removed)
+  final String _paymentMethod = 'Mobile Money';
   bool _isSubmitting = false;
   String _selectedRegion = 'Greater Accra';
 
-  final List<String> _steps = ['Shipping', 'Payment', 'Review'];
-
-  final List<Map<String, dynamic>> _paymentMethods = [
-    {
-      'name': 'Mobile Money',
-      'description': 'Pay via MTN, Vodafone, or AirtelTigo',
-      'icon': Icons.phone_android_outlined,
-      'recommended': true,
-    },
-    {
-      'name': 'Credit Card',
-      'description': 'Visa, Mastercard, or American Express',
-      'icon': Icons.credit_card_outlined,
-      'recommended': false,
-    },
-   
-  ];
+  final List<String> _steps = ['Shipping', 'Review'];
 
   @override
   void dispose() {
@@ -69,17 +53,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   String _money(double value) => 'GH₵${value.toStringAsFixed(2)}';
 
-  void _nextStep() {
+void _nextStep() {
     if (_currentStep == 0 && _formKey.currentState!.validate()) {
+      // Go from Shipping (step 0) directly to Review (step 1)
+      // Payment method step has been removed
       setState(() => _currentStep = 1);
-    } else if (_currentStep == 1) {
-      setState(() => _currentStep = 2);
     }
   }
 
   void _previousStep() {
     if (_currentStep > 0) {
-      setState(() => _currentStep = _currentStep - 1);
+      // Go from Review (step 1) back to Shipping (step 0)
+      setState(() => _currentStep = 0);
     }
   }
 
@@ -844,126 +829,8 @@ LayoutBuilder(
                         ),
                       ),
                     ],
-                    // Step 2: Payment Method
+// Step 2: Review & Confirm (Payment method step removed - using Mobile Money)
                     if (_currentStep == 1) ...[
-                      ProfessionalSectionCard(
-                        title: 'Payment Method',
-                        icon: Icons.payments_outlined,
-                        child: Column(
-                          children: [
-                            ..._paymentMethods.map(
-                              (method) => Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: PaymentMethodCard(
-                                  method: method['name'],
-                                  description: method['description'],
-                                  icon: method['icon'],
-                                  isSelected: _paymentMethod == method['name'],
-                                  isRecommended: method['recommended'],
-                                  onTap: () {
-                                    setState(() => _paymentMethod = method['name']);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      // Phone Number for Payment Confirmation
-                      ProfessionalSectionCard(
-                        title: 'Phone Number for Payment',
-                        icon: Icons.phone_outlined,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Your phone number will be used to confirm your payment.',
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: theme.colorScheme.primary.withOpacity(0.3),
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.phone_in_talk,
-                                    color: theme.colorScheme.primary,
-                                    size: 24,
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Phone Number',
-                                          style: theme.textTheme.labelSmall?.copyWith(
-                                            color: theme.colorScheme.onSurfaceVariant,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          _phoneController.text.isEmpty
-                                              ? 'Not provided'
-                                              : _phoneController.text,
-                                          style: theme.textTheme.bodyMedium?.copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: _phoneController.text.isEmpty
-                                                ? theme.colorScheme.error
-                                                : theme.colorScheme.onSurface,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (_phoneController.text.isEmpty) ...[
-                              const SizedBox(height: 12),
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: theme.colorScheme.errorContainer,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.warning_outlined,
-                                      color: theme.colorScheme.error,
-                                      size: 20,
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Expanded(
-                                      child: Text(
-                                        'Please go back to Step 1 to enter your phone number',
-                                        style: theme.textTheme.bodySmall?.copyWith(
-                                          color: theme.colorScheme.onErrorContainer,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                    ],
-                    // Step 3: Review & Confirm
-                    if (_currentStep == 2) ...[
                       // Order Summary
                       ProfessionalSectionCard(
                         title: 'Order Summary',
@@ -1092,8 +959,8 @@ LayoutBuilder(
                       ),
                     ),
                   const SizedBox(width: 12),
-                  Expanded(
-                    child: _currentStep < 2
+Expanded(
+                    child: _currentStep < 1
                         ? ElevatedButton(
                             onPressed: _nextStep,
                             style: ElevatedButton.styleFrom(

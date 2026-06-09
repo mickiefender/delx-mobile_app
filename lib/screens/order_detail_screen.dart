@@ -172,10 +172,17 @@ Color _statusColor(OrderStatus status, ColorScheme scheme) {
 
     if (_isLoading) {
       return Scaffold(
-        appBar: AppBar(
+appBar: AppBar(
           title: const Text('Order Details'),
           leading: IconButton(
-            onPressed: () => context.pop(),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                // Fallback to home if there's nothing to pop
+                context.go('/');
+              }
+            },
             icon: const Icon(Icons.arrow_back),
           ),
         ),
@@ -188,7 +195,13 @@ Color _statusColor(OrderStatus status, ColorScheme scheme) {
         appBar: AppBar(
           title: const Text('Order Details'),
           leading: IconButton(
-            onPressed: () => context.pop(),
+            onPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go('/');
+              }
+            },
             icon: const Icon(Icons.arrow_back),
           ),
         ),
@@ -226,11 +239,17 @@ Color _statusColor(OrderStatus status, ColorScheme scheme) {
     final hasTrackingHistory = order.trackingHistory != null && order.trackingHistory!.isNotEmpty;
     final billingSameAsShipping = order.billingSameAsShipping?.toLowerCase() == 'true';
 
-    return Scaffold(
+return Scaffold(
       appBar: AppBar(
         title: Text(order.orderId.isNotEmpty ? 'Order #${order.orderId}' : 'Order #${order.id}'),
         leading: IconButton(
-          onPressed: () => context.pop(),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/');
+            }
+          },
           icon: const Icon(Icons.arrow_back),
         ),
         actions: [
